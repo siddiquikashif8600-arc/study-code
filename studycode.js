@@ -451,11 +451,7 @@ async function sendAgentMessage() {
         
         if (modelId === 'gemini') {
             const geminiKeys = [
-                "AIzaSyDMJt-HXBeCl9iwkK06qFtDHy2mh1UFrIs",
-                "AIzaSyDIzwaYxyIQzMiQJV6QXHIJpxpG-qOOGiw",
-                "AIzaSyAsEi0Kfx2nB94mCz-VjuwWqF4_dK8SbzQ",
-                "AIzaSyAhJcvo0iOs5zvTUwgEMe9HZBhXWdAzeOs",
-                "AIzaSyCq460CHAO1VMQrxTQetdKy_NR4MPEenLM"
+                "API_KEY_HIDDEN"
             ];
             
             const systemPrefix = sysPrompt + "\n\nIdentity Role: You are simulating " + modelId + ".\n\n";
