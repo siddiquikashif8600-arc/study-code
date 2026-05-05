@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Gateway</title>
+    <style>
+        body { font-family: monospace; background-color: #0d1117; color: #c9d1d9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { max-width: 600px; width: 100%; }
+        h1 { font-size: 1.5rem; text-align: center; margin-bottom: 30px; color: #58a6ff; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .btn { background-color: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 15px; border-radius: 6px; cursor: pointer; text-align: left; transition: all 0.2s; position: relative; overflow: hidden; }
+        .btn:hover { background-color: #30363d; border-color: #8b949e; }
+        .btn-title { font-weight: bold; margin-bottom: 5px; color: #79c0ff; }
+        .btn-desc { font-size: 0.8rem; color: #8b949e; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2ea043; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .show { opacity: 1; }
+        
+        /* Utility URLs section for CLI fallback */
+        .cli-section { margin-top: 40px; border-top: 1px solid #30363d; padding-top: 20px; }
+        .cli-box { background: #161b22; padding: 15px; border-radius: 6px; font-size: 0.85rem; margin-top: 10px; border: 1px solid #30363d; word-break: break-all; }
+        .cli-copy { background: none; border: none; color: #58a6ff; cursor: pointer; padding: 0; float: right; }
+        .cli-copy:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>[ SYSTEM GATEWAY ]</h1>
+        <p style="text-align: center; color: #8b949e; margin-bottom: 25px;">Click to copy source code to clipboard.</p>
+        
+        <div class="grid" id="programGrid">
+            <!-- Buttons injected here -->
+        </div>
+
+        <div class="cli-section">
+            <h2 style="font-size: 1.1rem; color: #d2a8ff;">Fallback CLI Access</h2>
+            <p style="font-size: 0.85rem; color: #8b949e;">If you still want to try the terminal, use these raw endpoints:</p>
+            <div class="cli-box">
+                <button class="cli-copy" onclick="copyCli()">Copy</button>
+                <code id="cliCmd">iwr GATEWAY_URL/p1.txt -OutFile Main.java; javac Main.java; java Main</code>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast">Copied to clipboard! Ready to paste.</div>
+
+    <script>
+        const PROGRAMS = {};
+        
+        const grid = document.getElementById('programGrid');
+        
+        // Populate buttons
+        for (const [key, data] of Object.entries(PROGRAMS)) {
+            const btn = document.createElement('div');
+            btn.className = 'btn';
+            btn.innerHTML = `
+                <div class="btn-title">Program ${key}</div>
+                <div class="btn-desc">${data.name}</div>
+            `;
+            btn.onclick = () => copyToClipboard(data.code, btn);
+            grid.appendChild(btn);
+        }
+        
+        // Update CLI string based on current domain
+        window.onload = () => {
+            document.getElementById('cliCmd').innerText = `iwr https://${window.location.host}/p1.txt -OutFile Main.java; javac Main.java; java Main`;
+        };
+        
+        function copyCli() {
+            navigator.clipboard.writeText(document.getElementById('cliCmd').innerText);
+            showToast('CLI command copied!');
+        }
+
+        function copyToClipboard(b64, btn) {
+            const code = decodeURIComponent(escape(atob(b64)));
+            navigator.clipboard.writeText(code).then(() => {
+                const originalBorder = btn.style.borderColor;
+                btn.style.borderColor = '#2ea043';
+                showToast('Copied! Now paste inside IntelliJ (Ctrl+V)');
+                setTimeout(() => { btn.style.borderColor = originalBorder; }, 1000);
+            }).catch(err => {
+                showToast('Failed to copy: ' + err);
+            });
+        }
+        
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+    </script>
+</body>
+</html>
+    
