@@ -1,1 +1,97 @@
-import java.util.Scanner;\nclass Knapsack {\npublic static void main(String[] args) {\nScanner sc = new Scanner(System.in);\nSystem.out.println(\"Enter the Total Objects\");\nint object = sc.nextInt();\nint weight[] = new int[object];\nint profit[] = new int[object];\nfor (int i = 0; i< object; i++) {\nSystem.out.println(\"Enter the Profit\");\nprofit[i] = sc.nextInt();\nSystem.out.println(\"Enter the Weight\");\nweight[i] = sc.nextInt();\n}\nSystem.out.println(\"Enter the Knapsack Capacity\");\nint m = sc.nextInt();\ndouble p_w[] = new double[object];\nfor (int i = 0; i< object; i++) {\np_w[i] = (double) profit[i] / weight[i];\n}\nSystem.out.println(\"\n-------------------\");\nSystem.out.println(\"-----Data-Set------\");\nSystem.out.print(\"-------------------\n\n\");\nSystem.out.print(\"Objects \");\nfor (int i = 1; i<= object; i++) {\nSystem.out.print(i + \" \");\n}\nSystem.out.println();\nSystem.out.print(\"Profit \");\nfor (int i = 0; i< object; i++) {\nSystem.out.print(profit[i] + \" \");\n}\nSystem.out.println();\nSystem.out.print(\"Weight \");\nfor (int i = 0; i< object; i++) {\nSystem.out.print(weight[i] + \" \");\n}\nSystem.out.println();\nSystem.out.print(\"P/W \");\nfor (int i = 0; i< object; i++) {\nSystem.out.print(p_w[i] + \" \");\n}\nSystem.out.println();\nfor (int i = 0; i< object - 1; i++) {\nfor (int j = i + 1; j < object; j++) {\nif (p_w[i] < p_w[j]) {\ndouble temp = p_w[i];\np_w[i] = p_w[j];\np_w[j] = temp;\nint tempProfit = profit[i];\nprofit[i] = profit[j];\nprofit[j] = tempProfit;\nint tempWeight = weight[i];\nweight[i] = weight[j];\nweight[j] = tempWeight;\n} } }\nSystem.out.println(\"\n-------------------\");\nSystem.out.println(\"--After Arranging--\");\nSystem.out.print(\"-------------------\n\n\");\nSystem.out.print(\"Objects \");\nfor (int i = 1; i<= object; i++) {\nSystem.out.print(i + \" \");\n}\nSystem.out.println();\nSystem.out.print(\"Profit \");\nfor (int i = 0; i< object; i++) {\nSystem.out.print(profit[i] + \" \");\n}\nSystem.out.println();\nSystem.out.print(\"Weight \");\nfor (int i = 0; i< object; i++) {\nSystem.out.print(weight[i] + \" \");\n}\nSystem.out.println();\nSystem.out.print(\"P/W \");\nfor (int i = 0; i< object; i++) {\nSystem.out.print(p_w[i] + \" \");\n}\nSystem.out.println();\ndouble sum = 0;\nint k = 0;\nwhile (m > 0 && k <object) {\nif (weight[k] <= m) {\nsum += profit[k];\nm -= weight[k];\n} else {\nsum += p_w[k] * m;\nm = 0;\n} k++; }\nSystem.out.println(\"Final Profit is=\" + sum);\n}}
+import java.util.Scanner;
+class Knapsack {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter the Total Objects");
+int object = sc.nextInt();
+int weight[] = new int[object];
+int profit[] = new int[object];
+for (int i = 0; i< object; i++) {
+System.out.println("Enter the Profit");
+profit[i] = sc.nextInt();
+System.out.println("Enter the Weight");
+weight[i] = sc.nextInt();
+}
+System.out.println("Enter the Knapsack Capacity");
+int m = sc.nextInt();
+double p_w[] = new double[object];
+for (int i = 0; i< object; i++) {
+p_w[i] = (double) profit[i] / weight[i];
+}
+System.out.println("
+-------------------");
+System.out.println("-----Data-Set------");
+System.out.print("-------------------
+
+");
+System.out.print("Objects ");
+for (int i = 1; i<= object; i++) {
+System.out.print(i + " ");
+}
+System.out.println();
+System.out.print("Profit ");
+for (int i = 0; i< object; i++) {
+System.out.print(profit[i] + " ");
+}
+System.out.println();
+System.out.print("Weight ");
+for (int i = 0; i< object; i++) {
+System.out.print(weight[i] + " ");
+}
+System.out.println();
+System.out.print("P/W ");
+for (int i = 0; i< object; i++) {
+System.out.print(p_w[i] + " ");
+}
+System.out.println();
+for (int i = 0; i< object - 1; i++) {
+for (int j = i + 1; j < object; j++) {
+if (p_w[i] < p_w[j]) {
+double temp = p_w[i];
+p_w[i] = p_w[j];
+p_w[j] = temp;
+int tempProfit = profit[i];
+profit[i] = profit[j];
+profit[j] = tempProfit;
+int tempWeight = weight[i];
+weight[i] = weight[j];
+weight[j] = tempWeight;
+} } }
+System.out.println("
+-------------------");
+System.out.println("--After Arranging--");
+System.out.print("-------------------
+
+");
+System.out.print("Objects ");
+for (int i = 1; i<= object; i++) {
+System.out.print(i + " ");
+}
+System.out.println();
+System.out.print("Profit ");
+for (int i = 0; i< object; i++) {
+System.out.print(profit[i] + " ");
+}
+System.out.println();
+System.out.print("Weight ");
+for (int i = 0; i< object; i++) {
+System.out.print(weight[i] + " ");
+}
+System.out.println();
+System.out.print("P/W ");
+for (int i = 0; i< object; i++) {
+System.out.print(p_w[i] + " ");
+}
+System.out.println();
+double sum = 0;
+int k = 0;
+while (m > 0 && k <object) {
+if (weight[k] <= m) {
+sum += profit[k];
+m -= weight[k];
+} else {
+sum += p_w[k] * m;
+m = 0;
+} k++; }
+System.out.println("Final Profit is=" + sum);
+}}
