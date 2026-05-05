@@ -1,1 +1,38 @@
-import java.util.Scanner;\npublic class WarshallAlgorithm {\nstatic final int V = 4;\nstatic void warshall(int[][] graph) {\nint[][] reach = new int[V][V];\nfor (int i = 0; i< V; i++)\nfor (int j = 0; j < V; j++)\nreach[i][j] = graph[i][j];\nfor (int k = 0; k < V; k++) {\nfor (int i = 0; i< V; i++) {\nfor (int j = 0; j < V; j++) {\nreach[i][j] = (reach[i][j] != 0) || (reach[i][k] != 0 && reach[k][j] != 0) ? 1 : 0;\n}\n}\n}\nSystem.out.println(\"Transitive Closure Matrix:\");\nfor (int i = 0; i< V; i++) {\nfor (int j = 0; j < V; j++) {\nSystem.out.print(reach[i][j] + \" \");\n}\nSystem.out.println();\n}\n}\npublic static void main(String[] args) {\nScanner scanner = new Scanner(System.in);\nSystem.out.println(\"Enter the number of vertices:\");\nint n = scanner.nextInt();\nint[][] graph = new int[n][n];\nSystem.out.println(\"Enter the adjacency matrix:\");\nfor (int i = 0; i< n; i++) {\nfor (int j = 0; j < n; j++) {\ngraph[i][j] = scanner.nextInt();\n}\n}\nscanner.close();\nwarshall(graph);\n}\n}
+import java.util.Scanner;
+public class WarshallAlgorithm {
+static final int V = 4;
+static void warshall(int[][] graph) {
+int[][] reach = new int[V][V];
+for (int i = 0; i< V; i++)
+for (int j = 0; j < V; j++)
+reach[i][j] = graph[i][j];
+for (int k = 0; k < V; k++) {
+for (int i = 0; i< V; i++) {
+for (int j = 0; j < V; j++) {
+reach[i][j] = (reach[i][j] != 0) || (reach[i][k] != 0 && reach[k][j] != 0) ? 1 : 0;
+}
+}
+}
+System.out.println("Transitive Closure Matrix:");
+for (int i = 0; i< V; i++) {
+for (int j = 0; j < V; j++) {
+System.out.print(reach[i][j] + " ");
+}
+System.out.println();
+}
+}
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+System.out.println("Enter the number of vertices:");
+int n = scanner.nextInt();
+int[][] graph = new int[n][n];
+System.out.println("Enter the adjacency matrix:");
+for (int i = 0; i< n; i++) {
+for (int j = 0; j < n; j++) {
+graph[i][j] = scanner.nextInt();
+}
+}
+scanner.close();
+warshall(graph);
+}
+}
