@@ -1,1 +1,68 @@
-import java.util.Scanner;\npublic class NQueens {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.print(\"Enter the grid size (e.g., 4 for 4x4): \");\n        int n = sc.nextInt();\n        placeQueens(n);\n    }\n\n    private static void placeQueens(int gridSize) {\n        if (gridSize < 4 && gridSize != 1) {\n            System.out.println(\"No Solution available\");\n        } else {\n            int[][] board = new int[gridSize][gridSize];\n            if (placeAllQueens(board, 0)) {\n                printBoard(board);\n            } else {\n                System.out.println(\"No Solution available\");\n            }\n        }\n    }\n\n    private static boolean placeAllQueens(int[][] board, int row) {\n        if (row >= board.length) {\n            return true;\n        }\n        for (int j = 0; j < board.length; j++) {\n            if (isSafe(board, row, j)) {\n                board[row][j] = 1;\n                if (placeAllQueens(board, row + 1)) {\n                    return true;\n                }\n                board[row][j] = 0; // Backtrack\n            }\n        }\n        return false;\n    }\n\n    private static boolean isSafe(int[][] board, int row, int col) {\n        // Check Left Upper Diagonal\n        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {\n            if (board[i][j] == 1) return false;\n        }\n        // Check Right Upper Diagonal\n        for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++) {\n            if (board[i][j] == 1) return false;\n        }\n        // Check same Column\n        for (int i = row - 1; i >= 0; i--) {\n            if (board[i][col] == 1) return false;\n        }\n        return true;\n    }\n\n    private static void printBoard(int[][] board) {\n        for (int row = 0; row < board.length; row++) {\n            for (int col = 0; col < board.length; col++) {\n                if (board[row][col] == 1) {\n                    System.out.print(\"Q \");\n                } else {\n                    System.out.print(\"_ \");\n                }\n            }\n            System.out.println();\n        }\n        System.out.println(\"\");\n    }\n}
+import java.util.Scanner;
+public class NQueens {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the grid size (e.g., 4 for 4x4): ");
+        int n = sc.nextInt();
+        placeQueens(n);
+    }
+
+    private static void placeQueens(int gridSize) {
+        if (gridSize < 4 && gridSize != 1) {
+            System.out.println("No Solution available");
+        } else {
+            int[][] board = new int[gridSize][gridSize];
+            if (placeAllQueens(board, 0)) {
+                printBoard(board);
+            } else {
+                System.out.println("No Solution available");
+            }
+        }
+    }
+
+    private static boolean placeAllQueens(int[][] board, int row) {
+        if (row >= board.length) {
+            return true;
+        }
+        for (int j = 0; j < board.length; j++) {
+            if (isSafe(board, row, j)) {
+                board[row][j] = 1;
+                if (placeAllQueens(board, row + 1)) {
+                    return true;
+                }
+                board[row][j] = 0; // Backtrack
+            }
+        }
+        return false;
+    }
+
+    private static boolean isSafe(int[][] board, int row, int col) {
+        // Check Left Upper Diagonal
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 1) return false;
+        }
+        // Check Right Upper Diagonal
+        for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++) {
+            if (board[i][j] == 1) return false;
+        }
+        // Check same Column
+        for (int i = row - 1; i >= 0; i--) {
+            if (board[i][col] == 1) return false;
+        }
+        return true;
+    }
+
+    private static void printBoard(int[][] board) {
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board.length; col++) {
+                if (board[row][col] == 1) {
+                    System.out.print("Q ");
+                } else {
+                    System.out.print("_ ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("");
+    }
+}
