@@ -391,7 +391,7 @@ async function sendAgentMessage() {
             } else {
                 invokeUrl = "/.netlify/functions/nvidia";
             }
-            const apiKey = "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";
+            const apiKey = "NVIDIA_API_KEY_HIDDEN_1";
 
             const systemPrefix = sysPrompt + "\n\nIdentity Role: You are simulating " + modelId + ".\n\n";
             let historyStr = agentHistory.map(m => m.role.toUpperCase() + ": " + m.content).join("\n\n");
@@ -451,7 +451,11 @@ async function sendAgentMessage() {
         
         if (modelId === 'gemini') {
             const geminiKeys = [
-                "API_KEY_HIDDEN"
+                "API_KEY_HIDDEN" // rest of keys removed
+                "AIzaSyDIzwaYxyIQzMiQJV6QXHIJpxpG-qOOGiw",
+                "AIzaSyAsEi0Kfx2nB94mCz-VjuwWqF4_dK8SbzQ",
+                "AIzaSyAhJcvo0iOs5zvTUwgEMe9HZBhXWdAzeOs",
+                "AIzaSyCq460CHAO1VMQrxTQetdKy_NR4MPEenLM"
             ];
             
             const systemPrefix = sysPrompt + "\n\nIdentity Role: You are simulating " + modelId + ".\n\n";
@@ -530,11 +534,11 @@ async function sendAgentMessage() {
             const config = {
                 deepseek: {
                     model: "deepseek-ai/deepseek-r1-distill-llama-8b",
-                    key: "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"
+                    key: "NVIDIA_API_KEY_HIDDEN_2"
                 },
                 kimi: {
                     model: "moonshotai/kimi-k2-instruct",
-                    key: "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"
+                    key: "NVIDIA_API_KEY_HIDDEN_2"
                 }
             }[modelId];
 
