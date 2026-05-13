@@ -237,6 +237,9 @@
                                     <div onclick="setAgentModel('gemini', 'Gemini 2.5 Flash', `<svg class='w-3.5 h-3.5 shrink-0' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='gBtnStarLocal' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='#4285F4'/><stop offset='35%' stop-color='#EA4335'/><stop offset='55%' stop-color='#FBBC05'/><stop offset='80%' stop-color='#34A853'/><stop offset='100%' stop-color='#4285F4'/></linearGradient></defs><path d='M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81' fill='url(#gBtnStarLocal)'/></svg>`)" class="flex items-center gap-2.5 px-3 py-2 text-[#cccccc] hover:bg-[#343436] hover:text-white cursor-pointer transition-colors mx-1 rounded-lg">
                                         <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gBtnStarLocal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4285F4"/><stop offset="35%" stop-color="#EA4335"/><stop offset="55%" stop-color="#FBBC05"/><stop offset="80%" stop-color="#34A853"/><stop offset="100%" stop-color="#4285F4"/></linearGradient></defs><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" fill="url(#gBtnStarLocal)"/></svg> Gemini 2.5 Flash
                                     </div>
+                                    <div onclick="setAgentModel('ultron-v3', 'Ultron V3 (Web Search)', `<span class='material-symbols-outlined text-green-400 text-[18px]'>travel_explore</span>`)" class="flex items-center gap-2.5 px-3 py-2 text-[#cccccc] hover:bg-[#343436] hover:text-white cursor-pointer transition-colors mx-1 rounded-lg">
+                                        <span class="material-symbols-outlined text-green-400 text-[18px]">travel_explore</span> Ultron V3 (Web Search)
+                                    </div>
                                     <div onclick="setAgentModel('deepseek', 'DeepSeek R1', `<img src='https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/deepseek.png' style='width:14px;height:14px;border-radius:50%;object-fit:cover;'>`)" class="flex items-center gap-2.5 px-3 py-2 text-[#cccccc] hover:bg-[#343436] hover:text-white cursor-pointer transition-colors mx-1 rounded-lg">
                                         <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/deepseek.png" style="width:14px;height:14px;border-radius:50%;object-fit:cover;"> DeepSeek R1
                                     </div>
@@ -262,7 +265,7 @@
                                         // Specific model features toggle
                                         const uploadBtn = document.getElementById('uploadImageBtn');
                                         if (uploadBtn) {
-                                            if (val === 'gemini') {
+                                            if (val === 'gemini' || val === 'ultron-v3') {
                                                 uploadBtn.style.display = 'flex';
                                             } else {
                                                 uploadBtn.style.display = 'none';
