@@ -391,7 +391,18 @@ async function sendAgentMessage() {
             } else {
                 invokeUrl = "/.netlify/functions/nvidia";
             }
-            const apiKey = "NVIDIA_API_KEY_HIDDEN_1";
+            let apiKey = localStorage.getItem('STUDYCODE_NVIDIA_KEY');
+            if (isLocalFile && !apiKey) {
+                apiKey = prompt("Please enter your NVIDIA API Key for Qwen model:");
+                if (apiKey) localStorage.setItem('STUDYCODE_NVIDIA_KEY', apiKey.trim());
+                else {
+                    appendAgentMsg('ai', "<span class='text-red-400'>NVIDIA API Key required for local execution.</span>", modelId);
+                    document.getElementById(typingId)?.remove();
+                    return;
+                }
+            } else if (!isLocalFile && !apiKey) {
+                apiKey = "NVIDIA_API_KEY_HIDDEN_1"; // Proxy handles it
+            }
 
             const systemPrefix = sysPrompt + "\n\nIdentity Role: You are simulating " + modelId + ".\n\n";
             let historyStr = agentHistory.map(m => m.role.toUpperCase() + ": " + m.content).join("\n\n");
@@ -450,13 +461,21 @@ async function sendAgentMessage() {
         }
         
         if (modelId === 'gemini') {
-            const geminiKeys = [
-                "API_KEY_HIDDEN" // rest of keys removed
-                "AIzaSyDIzwaYxyIQzMiQJV6QXHIJpxpG-qOOGiw",
-                "AIzaSyAsEi0Kfx2nB94mCz-VjuwWqF4_dK8SbzQ",
-                "AIzaSyAhJcvo0iOs5zvTUwgEMe9HZBhXWdAzeOs",
-                "AIzaSyCq460CHAO1VMQrxTQetdKy_NR4MPEenLM"
-            ];
+            let geminiKeys = [];
+            const localKey = localStorage.getItem('STUDYCODE_GEMINI_KEY');
+            if (localKey) {
+                geminiKeys.push(localKey);
+            } else {
+                const userKey = prompt("Please enter your Gemini API Key to use this model:");
+                if (userKey) {
+                    localStorage.setItem('STUDYCODE_GEMINI_KEY', userKey.trim());
+                    geminiKeys.push(userKey.trim());
+                } else {
+                    appendAgentMsg('ai', "<span class='text-red-400'>API Key required for Gemini. Please provide one.</span>", modelId);
+                    document.getElementById(typingId)?.remove();
+                    return;
+                }
+            }
             
             const systemPrefix = sysPrompt + "\n\nIdentity Role: You are simulating " + modelId + ".\n\n";
             let historyStr = agentHistory.map(m => m.role.toUpperCase() + ": " + m.content).join("\n\n");
@@ -531,14 +550,27 @@ async function sendAgentMessage() {
                 invokeUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://integrate.api.nvidia.com/v1/chat/completions");
             }
             
+            let nvKey = localStorage.getItem('STUDYCODE_NVIDIA_KEY');
+            if (window.location.protocol === 'file:' && !nvKey) {
+                nvKey = prompt("Please enter your NVIDIA API Key for DeepSeek/Kimi:");
+                if (nvKey) localStorage.setItem('STUDYCODE_NVIDIA_KEY', nvKey.trim());
+                else {
+                    appendAgentMsg('ai', "<span class='text-red-400'>NVIDIA API Key required for local execution.</span>", modelId);
+                    document.getElementById(typingId)?.remove();
+                    return;
+                }
+            } else if (window.location.protocol !== 'file:' && !nvKey) {
+                nvKey = "NVIDIA_API_KEY_HIDDEN_2"; // Proxy handles it
+            }
+
             const config = {
                 deepseek: {
                     model: "deepseek-ai/deepseek-r1-distill-llama-8b",
-                    key: "NVIDIA_API_KEY_HIDDEN_2"
+                    key: nvKey
                 },
                 kimi: {
                     model: "moonshotai/kimi-k2-instruct",
-                    key: "NVIDIA_API_KEY_HIDDEN_2"
+                    key: nvKey
                 }
             }[modelId];
 

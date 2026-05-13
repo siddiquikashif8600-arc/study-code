@@ -6,8 +6,8 @@
     <title>StudyCode — Advanced IDE & AI Compiler</title>
 
     <!-- Branding -->
-    <link rel="icon" type="image/png" href="logo.png?v=4">
-    <link rel="apple-touch-icon" href="logo.png?v=4">
+    <link rel="icon" type="image/png" href="studycode_logo.png">
+    <link rel="apple-touch-icon" href="studycode_logo.png">
     
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +47,8 @@
     <script>
         (function() {
             if (window.innerWidth <= 1024 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                window.location.href = "app.html?restriction=true";
+                // Standalone OSS version: Mobile view not supported message instead of redirecting to missing app.html
+                alert("StudyCode is optimized for Desktop only.");
             }
         })();
     </script>
@@ -109,11 +110,11 @@
     <!-- Header -->
     <header class="h-16 border-b border-ide-border flex items-center justify-between px-6 shrink-0 bg-ide-panel z-20 shadow-lg">
         <div class="flex items-center gap-4">
-            <a href="app.html" class="flex items-center text-slate-400 hover:text-white transition-colors" title="Back to StudyAI">
-                <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            <a href="#" class="flex items-center text-slate-400 hover:text-white transition-colors" title="StudyCode IDE">
+                <span class="material-symbols-outlined text-[20px]">code</span>
             </a>
             <div class="w-9 h-9 flex items-center justify-center overflow-hidden mix-blend-screen">
-                <img src="logo.png?v=4" alt="StudyCode Logo" class="w-full h-full object-contain scale-[1.3] pt-0.5">
+                <img src="studycode_logo.png" alt="StudyCode Logo" class="w-full h-full object-contain scale-[1.3] pt-0.5">
             </div>
             <h1 class="font-brand font-bold tracking-wide text-lg text-white">StudyCode <span class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full ml-1 border border-indigo-500/20">IDE</span></h1>
         </div>
